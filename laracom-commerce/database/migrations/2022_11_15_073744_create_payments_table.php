@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,11 +14,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cart_items', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class,'user_id');
-            $table->foreignId('product_id')->references('id')->on('products');
-            $table->integer('quantity');
+            $table->foreignId('order_id')->references('id')->on('orders');
+            $table->decimal('amount',10,2);
+            $table->string('status',45);
+            $table->string('type',45);
+            $table->foreignIdFor(User::class,'created_by')->nullable();
+            $table->foreignIdFor(User::class,'updated_by')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cart_items');
+        Schema::dropIfExists('payments');
     }
 };

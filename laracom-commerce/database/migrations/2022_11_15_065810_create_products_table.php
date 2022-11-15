@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string('image_size')->nullable();
             $table->string('description',2000)->nullable();
             $table->decimal('price',10,2);
-            $table->string('title',2000);
             $table->foreignIdFor(User::class,'created_by')->nullable();
             $table->foreignIdFor(User::class,'updated_by')->nullable();
             $table->softDeletes();
